@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"flag"
 	"fmt"
 	"log"
 
@@ -12,6 +13,10 @@ import (
 )
 
 func main() {
+	var cmd string
+	flag.StringVar(&cmd, "cmd", "migrate", "give command up/rollback/down/seed")
+	flag.Parse()
+
 	appConfig := config.InitConfig()
 
 	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s?sslmode=disable",
@@ -40,8 +45,21 @@ func main() {
 		log.Fatalf("failed to create migrate instance: %v", err)
 	}
 
-	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatalf("failed to run migrate up: %v", err)
+	switch cmd {
+	case "up":
+		// migrate database
+		log.Println("Starting process migration...")
+
+		if err := m.Up(); err != nil && err != migrate.ErrNoChange {
+			log.Fatalf("failed to run migrate up: %v", err)
+		}
+	case "down":
+		// running command down migration db. -- only works on development
+		log.Println("Starting process downing database...")
+
+		if err := m.Down(); err != nil && err != migrate.ErrNoChange {
+			log.Fatalf("failed to run migrate down: %v", err)
+		}
 	}
 
 	log.Println("Migrations applied successfully")
