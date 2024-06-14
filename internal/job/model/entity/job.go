@@ -2,6 +2,11 @@ package entity
 
 import "time"
 
+type Company struct {
+	ID   string `gorm:"primaryKey"`
+	Name string
+}
+
 type Job struct {
 	ID          string `gorm:"primaryKey"`
 	CompanyID   string

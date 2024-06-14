@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	fiberlogger "github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/handikacatur/jobs-api/cmd/config"
 	"github.com/handikacatur/jobs-api/cmd/internal"
@@ -22,6 +24,12 @@ func main() {
 	})
 	app.Use(recover.New())
 	app.Use(cors.New())
+	app.Use(fiberlogger.New(fiberlogger.Config{
+		Format:        "${ip} ${status} - ${method} - ${path}\n",
+		TimeFormat:    time.RFC3339,
+		TimeZone:      "Asia/Jakarta",
+		DisableColors: false,
+	}))
 
 	httpService := internal.InitService(serv)
 
