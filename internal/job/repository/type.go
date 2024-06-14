@@ -8,5 +8,5 @@ import (
 )
 
 type JobRepositoryProvider interface {
-	GetJobs(ctx context.Context, request request.GetJobsRequest) ([]entity.Job, error)
+	GetJobs(ctx context.Context, request request.GetJobsRequest) ([]entity.JobToCompany, error)
 }

@@ -2,8 +2,8 @@ package gorm
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/handikacatur/jobs-api/internal/job/model/entity"
 	"github.com/handikacatur/jobs-api/internal/job/model/request"
 	"gorm.io/gorm"
@@ -17,7 +17,19 @@ func NewJobRepository(db *gorm.DB) *JobRepository {
 	return &JobRepository{db: db}
 }
 
-func (j *JobRepository) GetJobs(ctx context.Context, request request.GetJobsRequest) ([]entity.Job, error) {
-	fmt.Println("Yooo it's called")
-	return []entity.Job{}, nil
+func (j *JobRepository) GetJobs(ctx context.Context, request request.GetJobsRequest) ([]entity.JobToCompany, error) {
+	request.Keyword = "Backend"
+	var result []entity.JobToCompany
+
+	query := j.db.Model(&entity.Job{}).
+		Select("jobs.id as job_id, companies.name as company, jobs.title as title, jobs.description as description, jobs.created_at as created_at").
+		Joins("left join companies on companies.id = jobs.company_id").
+		Where("jobs.title @@ to_tsquery(?)", request.Keyword).
+		Or("jobs.description @@ to_tsquery(?)", request.Keyword)
+	if err := query.Find(&result).Error; err != nil {
+		log.Errorf("error when get jobs Err: %v", err)
+		return result, err
+	}
+
+	return result, nil
 }

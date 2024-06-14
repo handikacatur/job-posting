@@ -3,9 +3,18 @@ package entity
 import "time"
 
 type Job struct {
-	ID          string    `db:"id"`
-	CompanyID   string    `db:"company_id"`
-	Title       string    `db:"title"`
-	Description string    `db:"description"`
-	CreatedAt   time.Time `db:"created_at"`
+	ID          string `gorm:"primaryKey"`
+	CompanyID   string
+	Title       string
+	Description string
+	CreatedAt   time.Time
+	Tsv         string `gorm:"type:tsvector"`
+}
+
+type JobToCompany struct {
+	JobID       string
+	Company     string
+	Title       string
+	Description string
+	CreatedAt   time.Time
 }

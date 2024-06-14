@@ -31,7 +31,8 @@ func (j *jobService) GetJobList(ctx context.Context, req request.GetJobsRequest)
 
 	for _, job := range jobs {
 		resp = append(resp, response.GetJobsResponseData{
-			CompanyName: "Company", // TODO: THIS SHIT
+			JobID:       job.JobID,
+			CompanyName: job.Company,
 			Title:       job.Title,
 			Description: job.Description,
 		})
