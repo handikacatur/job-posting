@@ -2,6 +2,11 @@ package response
 
 import "time"
 
+type CreateJobResponse struct {
+	StatusCode int    `json:"status_code" example:"200"`
+	Message    string `json:"message" example:"job created successfully"`
+}
+
 type GetJobsResponse struct {
 	StatusCode int                   `json:"status_code" example:"200"`
 	Message    string                `json:"message" example:"success get job list"`

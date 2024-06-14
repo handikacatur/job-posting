@@ -10,4 +10,5 @@ import (
 
 type JobServiceProvider interface {
 	GetJobList(ctx context.Context, req request.GetJobsRequest) ([]response.GetJobsResponseData, modelError.ErrorIface)
+	CreateJob(ctx context.Context, req request.CreateJobRequest) modelError.ErrorIface
 }

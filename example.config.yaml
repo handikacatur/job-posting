@@ -1,0 +1,10 @@
+env: "local"
+api:
+  port: "3001"
+database:
+  driver: postgres
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+  name: job_posting

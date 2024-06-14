@@ -40,3 +40,11 @@ func (j *jobService) GetJobList(ctx context.Context, req request.GetJobsRequest)
 
 	return resp, nil
 }
+
+func (j *jobService) CreateJob(ctx context.Context, req request.CreateJobRequest) modelError.ErrorIface {
+	if err := j.jobRepo.CreateJob(ctx, req); err != nil {
+		return modelError.New(modelError.ErrorCodeInternalServer)
+	}
+
+	return nil
+}

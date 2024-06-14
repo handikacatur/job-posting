@@ -11,3 +11,6 @@ migrate-down:
 	$(MAKE) migrate-compile
 	@echo ">> Starting to down migration..."
 	@./build/migrate -cmd=down & echo $$! > $@;
+
+run:
+	go run cmd/http/main.go

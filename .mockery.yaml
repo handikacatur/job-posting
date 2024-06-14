@@ -1,0 +1,14 @@
+with-expecter: True
+inpackage: True
+filename: "{{.InterfaceName}}.go"
+dir: ./{{.InterfaceDirRelative}}/mocks
+packages:
+  github.com/handikacatur/jobs-api/internal/job/service:
+    interfaces:
+      JobServiceProvider:
+  github.com/handikacatur/jobs-api/internal/job/repository:
+    interfaces:
+      JobRepositoryProvider:
+  github.com/handikacatur/jobs-api/tools/mock_db:
+    interfaces:
+      DB:
