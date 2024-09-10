@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/handikacatur/jobs-api/internal/job/model/entity"
 	"github.com/handikacatur/jobs-api/internal/job/model/request"
-	"github.com/handikacatur/jobs-api/internal/job/repository"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +13,7 @@ type JobRepository struct {
 	db *gorm.DB
 }
 
-func NewJobRepository(db *gorm.DB) repository.JobRepositoryProvider {
+func NewJobRepository(db *gorm.DB) *JobRepository {
 	return &JobRepository{db: db}
 }
 

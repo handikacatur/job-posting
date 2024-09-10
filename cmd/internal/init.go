@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/handikacatur/jobs-api/cmd/config"
+	"github.com/handikacatur/jobs-api/internal/job/httpservice"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -43,10 +44,10 @@ func initDatabase(config config.DatabaseConfig) *gorm.DB {
 	return db
 }
 
-//func InitService(serv *Service) HTTPService {
-//	return HTTPService{
-//		Job: httpservice.NewHandler(httpservice.HandlerConfig{
-//			JobService: serv.Job,
-//		}),
-//	}
-//}
+func InitService(serv *Service) HTTPService {
+	return HTTPService{
+		Job: httpservice.NewHandler(httpservice.HandlerConfig{
+			JobService: serv.Job,
+		}),
+	}
+}

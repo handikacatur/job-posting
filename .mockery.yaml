@@ -9,3 +9,6 @@ packages:
   github.com/handikacatur/jobs-api/internal/job/repository:
     interfaces:
       JobRepositoryProvider:
+  github.com/handikacatur/jobs-api/tools/mock_db:
+    interfaces:
+      DB:

@@ -10,12 +10,13 @@ import (
 	fiberlogger "github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/handikacatur/jobs-api/cmd/config"
+	"github.com/handikacatur/jobs-api/cmd/internal"
 )
 
 func main() {
 	cfg := config.InitConfig()
 
-	//serv := internal.GetService(cfg)
+	serv := internal.GetService(cfg)
 
 	app := fiber.New(fiber.Config{
 		AppName:   "Job posting API",
@@ -30,10 +31,10 @@ func main() {
 		DisableColors: false,
 	}))
 
-	//httpService := internal.InitService()
+	httpService := internal.InitService(serv)
 
 	// Initialize Routers
-	//httpService.Job.SetRoute(app)
+	httpService.Job.SetRoute(app)
 
 	log.Printf("fiber is running on port %s. Env: %v", cfg.API.Port, os.Getenv("GO_ENV"))
 
